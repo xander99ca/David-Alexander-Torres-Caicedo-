@@ -1,1 +1,171 @@
+#include <iostream>
+using namespace std;
 
+// Estructura del nodo
+struct nodo {
+    int ID;                // ID del producto
+    char Nombre[30];       // Nombre del producto
+    struct nodo *sig;      // Puntero al siguiente nodo
+};
+
+// Punteros globales para manipular la lista
+struct nodo *cab = NULL, *aux = NULL, *aux2 = NULL;
+
+// Función para agregar un nuevo producto
+void addProducto() {
+    aux = (struct nodo *)malloc(sizeof(struct nodo));
+    if (aux == NULL) {
+        cout << "Error: no se pudo asignar memoria." << endl;
+        return;
+    }
+
+    cout << "Ingrese ID del producto: ";
+    cin >> aux->ID;
+    cin.ignore();
+    cout << "Ingrese Nombre del producto: ";
+    cin.getline(aux->Nombre, 30);
+    
+    aux->sig = NULL;
+
+    if (cab == NULL) {
+        cab = aux;
+    } else {
+        aux2 = cab;
+        while (aux2->sig != NULL) {
+            aux2 = aux2->sig;
+        }
+        aux2->sig = aux;
+    }
+}
+
+// Función para mostrar todos los productos
+void viewProductos() {
+    for (aux = cab; aux != NULL; aux = aux->sig) {
+        cout << "ID: " << aux->ID << " - Nombre: " << aux->Nombre << endl;
+    }
+}
+
+// Función para buscar un producto por ID
+void searchProducto() {
+    int idBuscar;
+    cout << "Ingrese el ID del producto a buscar: ";
+    cin >> idBuscar;
+    cout<<endl;
+    for (aux = cab; aux != NULL; aux = aux->sig) {
+        if (aux->ID == idBuscar) {
+            cout << "Producto encontrado: " << aux->Nombre << endl;
+            return;
+        }
+    }
+    cout << "Producto no encontrado." << endl;
+}
+
+// Función para eliminar un producto por ID
+void deleteProducto() {
+    int idEliminar;
+    cout << "Ingrese el ID del producto a eliminar: ";
+    cin >> idEliminar;
+    
+    aux = cab;
+    aux2 = NULL;
+    while (aux != NULL && aux->ID != idEliminar) {
+        aux2 = aux;
+        aux = aux->sig;
+    }
+    
+    if (aux == NULL) {
+        cout << "Producto no encontrado." << endl;
+        return;
+    }
+    
+    if (aux2 == NULL) {
+        cab = aux->sig;
+    } else {
+        aux2->sig = aux->sig;
+    }
+    
+    free(aux);
+    cout << "Producto eliminado correctamente." << endl;
+}
+
+// Función para contar los productos registrados
+void countProductos() {
+    int count = 0;
+    for (aux = cab; aux != NULL; aux = aux->sig) {
+        count++;
+    }
+    cout << "Total de productos registrados: " << count << endl;
+}
+
+// Función para modificar el nombre de un producto dado su ID
+void modifyProducto() {
+    int idModificar;
+    cout << "Ingrese el ID del producto a modificar: ";
+    cin >> idModificar;
+    cin.ignore();
+    
+    for (aux = cab; aux != NULL; aux = aux->sig) {
+        if (aux->ID == idModificar) {
+            cout << "Ingrese el nuevo nombre: ";
+            cin.getline(aux->Nombre, 30);
+            cout << "Nombre modificado correctamente." << endl;
+            return;
+        }
+    }
+    cout << "Producto no encontrado." << endl;
+}
+
+// Función para liberar memoria al salir del sistema
+void liberarMemoria() {
+    while (cab != NULL) {
+        aux = cab;
+        cab = cab->sig;
+        free(aux);
+    }
+    cout << "Memoria liberada correctamente." << endl;
+}
+
+// Función principal con menú de opciones
+int main() {
+    int opc;
+    
+    do {
+        
+        cout << "\n==== MENÚ ====" << endl;
+        cout << "1. Agregar producto" << endl;
+        cout << "2. Mostrar todos los productos" << endl;
+        cout << "3. Buscar producto por ID" << endl;
+        cout << "4. Eliminar producto por ID" << endl;
+        cout << "5. Contar productos registrados" << endl;
+        cout << "6. Modificar nombre del producto" << endl;
+        cout << "7. Salir" << endl;
+        cout<<endl;
+        cout << "Seleccione una opción: ";
+        cin >> opc;
+        cout<<endl;
+        switch (opc) {
+            case 1:
+                addProducto();
+                break;
+            case 2:
+                viewProductos();
+                break;
+            case 3:
+                searchProducto();
+                break;
+            case 4:
+                deleteProducto();
+                break;
+            case 5:
+                countProductos();
+                break;
+            case 6:
+                modifyProducto();
+                break;
+        }
+    } while (opc != 7);
+    system("cls");
+    
+    liberarMemoria();
+    return 0;
+}
