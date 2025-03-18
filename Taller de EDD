@@ -1,14 +1,17 @@
+//David Alexander Torres Caicedo y Zeneida ramos
+
+
 #include <iostream>
 using namespace std;
 
-// Estructura del nodo
+
 struct nodo {
-    int ID;                // ID del producto
-    char Nombre[30];       // Nombre del producto
-    struct nodo *sig;      // Puntero al siguiente nodo
+    int ID;             
+    char Nombre[30];       
+    struct nodo *sig;      
 };
 
-// Punteros globales para manipular la lista
+
 struct nodo *cab = NULL, *aux = NULL, *aux2 = NULL;
 
 // Función para agregar un nuevo producto
@@ -125,7 +128,7 @@ void liberarMemoria() {
     cout << "Memoria liberada correctamente." << endl;
 }
 
-// Función principal con menú de opciones
+
 int main() {
     int opc;
     
