@@ -44,7 +44,7 @@ void addProducto() {
 // Función para mostrar todos los productos
 void viewProductos() {
     for (aux = cab; aux != NULL; aux = aux->sig) {
-        cout << "ID: " << aux->ID <<endl<< " - Nombre: " << aux->Nombre << endl;
+        cout << "ID: " << aux->ID <<endl<< " Nombre: " << aux->Nombre << endl;
     }
 }
 
