@@ -1,1 +1,191 @@
-hola
+#include <iostream>
+using namespace std;
+
+struct peli{    
+
+string nombre;
+int ano_reali;
+string genero;
+float dinero_recau;
+peli *izq, *der;
+    
+};
+  
+peli *raiz, *aux, *aux2;
+
+
+int posicionar(){
+    if(aux->nombre < aux2->nombre){
+        if(aux2->izq!=NULL){
+            aux2= aux2->izq;
+            posicionar();
+        }
+        else 
+        aux2->izq=aux;
+    }
+    else if(aux->ano_reali > aux2->ano_reali){
+        if(aux2->der!=NULL){
+            aux2= aux2->der;
+            posicionar();
+        }
+        else 
+        aux2->der=aux;
+    }
+    return 0;
+}
+
+int preorden(peli *aux3){
+    cout<<aux3->ano_reali<<endl;
+    if(aux3->izq!=NULL){
+        preorden(aux3->izq);
+    }
+     if(aux3->der!=NULL){
+        preorden(aux3->der);
+    }
+    return 0;
+}
+
+int inorden(peli *aux3){
+    if(aux3->izq!=NULL){
+        inorden(aux3->izq);
+    }
+    cout<<aux3->ano_reali<<endl;
+    if(aux3->der!=NULL){
+        inorden(aux3->der);
+    }
+    return 0;
+
+}
+
+int postorden(peli *aux3){
+    if(aux3->izq!=NULL){
+        postorden(aux3->izq);
+    }
+    if(aux3->der!=NULL){
+        postorden(aux3->der);
+    }
+    cout<<aux3->ano_reali<<endl;
+    return 0;
+
+}
+
+
+void AGREGAR(){
+    
+aux = (struct peli *)malloc(sizeof(struct peli));
+	if (aux == NULL) {
+		cout << "Error: no se pudo asignar memoria." << endl;
+		return;
+	}
+
+cout << "--- AGREGAR PELICULA ---" << endl;
+    cout << "Nombre: ";
+     cin.ignore();
+    getline(cin, aux->nombre);
+cin >> aux->ano_reali;
+    cout << "Año de realizacion: ";
+    cin >> ano_reali;
+    cout << "Genero: ";
+    cin.ignore();
+    getline(cin, genero);
+    cout << "Dinero recaudado: ";
+    cin.ignore();
+getline(cin, aux->genero);
+cin >> aux->dinero_recau;
+
+	aux->sig = NULL;
+
+	if (cab == NULL) {
+		cab = aux;
+	} else {
+		aux2 = cab;
+		while (aux2->sig != NULL) {
+			aux2 = aux2->sig;
+		}
+		aux2->sig = aux;
+	}
+};
+void Mostrar(){
+    
+   int opc;
+    cout<<"Elige\n"
+          "1) Inorden\n"
+          "2) Preorden\n"
+          "3) Posorden\n"
+          "4) Quieres regresar al menu principal\n"
+          "5) Salir"<<endl;
+           cout<<endl;
+        cout<<"Elige una opcion : " ;
+       cin>>opc;
+      cout<<endl;
+   switch(opc){
+         case 1:
+                preorden(raiz);
+                break;
+         case 2:
+                inorden(raiz);
+                break;
+         case 3:
+         	 postorden(raiz);
+                break; 
+         case 4:
+         	 main();
+                break;         
+	 }while(opc!=5)
+	 system("cls");
+	 
+}
+
+
+int main(){
+    int opc;
+    
+    
+  cout<<"----------------+++++++++++++";
+  cout<<"---------------+             +";
+  cout<<"--------------+               +";
+  cout<<"-------------+ +++         +++ +";
+  cout<<"------------+ + 0  +      + 0 + +";
+  cout<<"-----------+   +++         +++   +";
+  cout<<"----------+                       +";
+  cout<<"----------+                       +";
+  cout<<"-----------+     +++++++++++      +";
+  cout<<"------------+                    +";
+  cout<<"-------------+                  +";
+  cout<<"--------------++++++++++++++++++"<<endl;
+  
+  cout<<"-------------BIENVENIDO A PELIPLUS----------------";
+  cout<<endl;
+  cout<<"1) Agregar pelicula\n"
+        "2) Que pelicula buscas \n"
+        "3) Que genero buscas\n"
+        "4) Mostrar todas las peliculas\n"
+        "5) Ver los 3 fracasos taquilleros\n"
+        "6) Salir"<<endl;
+        
+        cout<<endl;
+        cout<<"Elige una opcion : " ;
+       cin>>opc;
+       
+       cout<<endl;
+     switch(opc){
+         case 1:
+                AGREGAR();
+                break;
+         case 2:
+                BUSCAR();
+                break;
+         case 3:
+                BuGenero()
+                break;  */
+         case 4:
+                Mostrar();
+                break;
+       /*  case 5:
+                break;  */
+     } while (opc!=6);
+     Salira();
+ system("cls");
+    
+}
+		  
