@@ -58,7 +58,6 @@ void posicionar() {
 
 void AGREGAR() {
 
-    aux = nueva peli;
 
     aux->izq = aux->der = NULL;
 
@@ -66,7 +65,7 @@ void AGREGAR() {
 
     cout << "--- AGREGAR PELICULA ---" << endl;
 
-    cout << "Nombre: ';
+    cout << "Nombre: ";
 
     cin.ignore();
 
@@ -122,7 +121,7 @@ int preorden(peli *n) {
 
          << "Género:  " << n->genero << "\n"
 
-         << "Recaudación: " << n->dinero_recau << "\n"
+         << "Recaudación: " << n->dinero_recau << "\n";
 
 
          
@@ -149,7 +148,7 @@ int inorden(peli *n) {
 
          << "Género:  " << n->genero << "\n"
 
-         << "Recaudación: " << n->dinero_recau << "\n"
+         << "Recaudación: " << n->dinero_recau << "\n";
 
 
          
@@ -176,7 +175,7 @@ int postorden(peli *n) {
 
          << "Género:  " << n->genero << "\n"
 
-         << "Recaudación: " << n->dinero_recau << "\n"
+         << "Recaudación: " << n->dinero_recau << "\n";
 
          
 
@@ -198,7 +197,7 @@ void MostrarRecorridos() {
 
              << "2) Inorden\n"
 
-             << "3) Postorden\n
+             << "3) Postorden\n"
 
              << "4) Volver al menú principal\n"
 
@@ -252,13 +251,13 @@ void BUSCAR() {
 
     cin.ignore();
 
-    getline(cin, bus);
+    getline(cin, Bus);
 
     peli  *b = raiz;
 
     while (b!= NULL) {
 
-        if (clave == b->nombre) {
+        if (Bus == b->nombre) {
 
              cout << "Encontrada: " << b->nombre << " (" << b->ano_reali << "), "
 
