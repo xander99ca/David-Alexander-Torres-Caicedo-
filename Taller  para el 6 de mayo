@@ -116,51 +116,77 @@ Void AGREGAR() {
 
 }
 
-Void preorden(peli *n) {
+Int preorden(peli *n) {
 
-    If (n == NULL) return;
+    If (n == NULL) return 0;
 
-    Cout << n->nombre << “ (“ << n->ano_reali << “), “ 
+    Cout << “Nombre: “ << n->nombre << “\n”
 
-         << n->genero << “, $” << n->dinero_recau << endl;
+         << “Año: “ << n->ano_reali << “\n”
+
+         << “Género: “ << n->genero << “\n”
+
+         << “Recaudación: “ << n->dinero_recau << “\n”
+
+         
 
     Preorden(n->izq);
 
     Preorden(n->der);
 
+    Return 0;
+
 }
 
 
 
-Void inorden(peli *n) {
+Int inorden(peli *n) {
 
-    If (n == NULL) return;
+    If (n == NULL) return 0;
 
     Inorden(n->izq);
 
-    Cout << n->nombre << “ (“ << n->ano_reali << “), “ 
+    Cout << “Nombre: “ << n->nombre << “\n”
 
-         << n->genero << “, $” << n->dinero_recau << endl;
+         << “Año: “ << n->ano_reali << “\n”
+
+         << “Género: “ << n->genero << “\n”
+
+         << “Recaudación: “ << n->dinero_recau << “\n”
+
+         
 
     Inorden(n->der);
+
+    Return 0;
 
 }
 
 
 
-Void postorden(peli *n) {
+Int postorden(peli *n) {
 
-    If (n == NULL) return;
+    If (n == NULL) return 0;
 
     Postorden(n->izq);
 
     Postorden(n->der);
 
-    Cout << n->nombre << “ (“ << n->ano_reali << “), “ 
+    Cout << “Nombre: “ << n->nombre << “\n”
 
-         << n->genero << “, $” << n->dinero_recau << endl;
+         << “Año: “ << n->ano_reali << “\n”
+
+         << “Género: “ << n->genero << “\n”
+
+         << “Recaudación: “ << n->dinero_recau << “\n”
+
+         
+
+    Return 0;
 
 }
+
+
 
 Void MostrarRecorridos() {
 
