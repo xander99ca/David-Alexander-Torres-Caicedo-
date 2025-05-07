@@ -1,54 +1,54 @@
 #include <iostream>
 
-Using namespace std;
+using namespace std;
 
 
 
-Struct peli {
+struct peli {
 
-    String nombre;
+    string nombre;
 
-    Int ano_reali;
+    int ano_reali;
 
-    String genero;
+    string genero;
 
-    Float dinero_recau;
+    float dinero_recau;
 
-    Peli *izq, *der;
+    peli *izq, *der;
 
 };
 
 
 
-Peli *raiz = NULL, *aux = NULL, *aux2 = NULL;
+peli *raiz = NULL, *aux = NULL, *aux2 = NULL;
 
-Void posicionar() {
+void posicionar() {
 
-    If (aux->nombre < aux2->nombre) {
+    if (aux->nombre < aux2->nombre) {
 
-        If (aux2->izq ¡= NULL) {
+        if (aux2->izq != NULL) {
 
-            Aux2 = aux2->izq;
+            aux2 = aux2->izq;
 
-            Posicionar();
+            posicionar();
 
         } else {
 
-            Aux2->izq = aux;
+            aux2->izq = aux;
 
         }
 
     } else {
 
-        If (aux2->der ¡= NULL) {
+        if (aux2->der != NULL) {
 
-            Aux2 = aux2->der;
+            aux2 = aux2->der;
 
-            Posicionar();
+            posicionar();
 
         } else {
 
-            Aux2->der = aux;
+            aux2->der = aux;
 
         }
 
@@ -56,245 +56,243 @@ Void posicionar() {
 
 }
 
+void AGREGAR() {
 
+    aux = nueva peli;
 
-// Agrega un nuevo nodo de película al árbol
-
-Void AGREGAR() {
-
-    Aux = nueva peli;
-
-    Aux->izq = aux->der = NULL;
+    aux->izq = aux->der = NULL;
 
 
 
-    Cout << “--- AGREGAR PELICULA ---“ << endl;
+    cout << "--- AGREGAR PELICULA ---" << endl;
 
-    Cout << “Nombre: “;
+    cout << "Nombre: ';
 
-    Cin.ignore();
+    cin.ignore();
 
-    Getline(cin, aux->nombre);
-
-
-
-    Cout << “Año de realización: “;
-
-    Cin >> aux->ano_reali;
-
-    Cin.ignore();
+    getline(cin, aux->nombre);
 
 
 
-    Cout << “Género: “;
+    cout << "Año de realización: ";
 
-    Getline(cin, aux->genero);
+    cin >> aux->ano_reali;
 
-
-
-    Cout << “Dinero recaudado: “;
-
-    Cin >> aux->dinero_recau;
+    cin.ignore();
 
 
 
-    If (raiz == NULL) {
+    cout << "Género: ";
 
-        Raiz = aux;
+    getline(cin, aux->genero);
+
+
+
+    cout << "Dinero recaudado: ";
+
+    cin >> aux->dinero_recau;
+
+
+
+    if (raiz == NULL) {
+
+        raiz = aux;
 
     } else {
 
-        Aux2 = raiz;
+        aux2 = raiz;
 
-        Posicionar();
+        posicionar();
 
     }
 
 
 
-    Cout << “Película agregada correctamente.\n\n”;
+    cout << "Película agregada correctamente.\n\n";
 
 }
 
-Int preorden(peli *n) {
+int preorden(peli *n) {
 
-    If (n == NULL) return 0;
+    if (n == NULL) return 0;
 
-    Cout << “Nombre: “ << n->nombre << “\n”
+    cout << "Nombre: " << n->nombre << "\n"
 
-         << “Año: “ << n->ano_reali << “\n”
+         << "Año: " << n->ano_reali << "\n"
 
-         << “Género: “ << n->genero << “\n”
+         << "Género:  " << n->genero << "\n"
 
-         << “Recaudación: “ << n->dinero_recau << “\n”
+         << "Recaudación: " << n->dinero_recau << "\n"
+
 
          
 
-    Preorden(n->izq);
+    preorden(n->izq);
 
-    Preorden(n->der);
+    preorden(n->der);
 
-    Return 0;
+    return 0;
 
 }
 
 
 
-Int inorden(peli *n) {
+int inorden(peli *n) {
 
-    If (n == NULL) return 0;
+    if (n == NULL) return 0;
 
-    Inorden(n->izq);
+    inorden(n->izq);
 
-    Cout << “Nombre: “ << n->nombre << “\n”
+    cout << "Nombre: " << n->nombre << "\n"
 
-         << “Año: “ << n->ano_reali << “\n”
+         << "Año: " << n->ano_reali << "\n"
 
-         << “Género: “ << n->genero << “\n”
+         << "Género:  " << n->genero << "\n"
 
-         << “Recaudación: “ << n->dinero_recau << “\n”
+         << "Recaudación: " << n->dinero_recau << "\n"
+
 
          
 
-    Inorden(n->der);
+    inorden(n->der);
 
-    Return 0;
+    return 0;
 
 }
 
 
 
-Int postorden(peli *n) {
+int postorden(peli *n) {
 
-    If (n == NULL) return 0;
+    if (n == NULL) return 0;
 
-    Postorden(n->izq);
+    postorden(n->izq);
 
-    Postorden(n->der);
+    postorden(n->der);
 
-    Cout << “Nombre: “ << n->nombre << “\n”
+    cout << "Nombre: " << n->nombre << "\n"
 
-         << “Año: “ << n->ano_reali << “\n”
+         << "Año: " << n->ano_reali << "\n"
 
-         << “Género: “ << n->genero << “\n”
+         << "Género:  " << n->genero << "\n"
 
-         << “Recaudación: “ << n->dinero_recau << “\n”
+         << "Recaudación: " << n->dinero_recau << "\n"
 
          
 
-    Return 0;
+    return 0;
 
 }
 
 
 
-Void MostrarRecorridos() {
+void MostrarRecorridos() {
 
-    Int opc;
+    int opc;
 
-    Do {
+    do {
 
-        Cout << “=== Mostrar películas ===\n”
+        cout << "=== Mostrar películas ===\n"
 
-             << “1) Preorden\n”
+             << "1) Preorden\n"
 
-             << “2) Inorden\n”
+             << "2) Inorden\n"
 
-             << “3) Postorden\n”
+             << "3) Postorden\n
 
-             << “4) Volver al menú principal\n”
+             << "4) Volver al menú principal\n"
 
-             << “Elige una opción: “;
+             << "Elige una opción: ";
 
-        Cin >> opc;
+        cin >> opc;
 
-        Cout << endl;
+        cout << endl;
 
-        Switch (opc) {
+        switch (opc) {
 
-            Case 1:
+            case 1:
 
-                Preorden(raiz);
+                preorden(raiz);
 
-                Break;
+                break;
 
-            Case 2:
+            case 2:
 
-                Inorden(raiz);
+                inorden(raiz);
 
-                Break;
+                break;
 
-            Case 3:
+            case 3:
 
-                Postorden(raiz);
+                postorden(raiz);
 
-                Break;
+                break;
 
         }
 
-        Cout << endl;
+        cout << endl;
 
-    } while (opc ¡= 4);
+    } while (opc != 4);
 
 }
 
-Void BUSCAR() {
+void BUSCAR() {
 
-    If (raiz == NULL) {
+    if (raiz == NULL) {
 
-        Cout << “No hay películas registradas.\n\n”;
+        cout << "No hay películas registradas.\n\n";
 
-        Return;
+        return;
 
     }
 
-    String Bus;
+    string Bus;
 
-    Cout << “Ingrese el nombre de la película a buscar: “;
+    cout << "Ingrese el nombre de la película a buscar: ";
 
-    Cin.ignore();
+    cin.ignore();
 
-    Getline(cin, bus);
+    getline(cin, bus);
 
-    Peli  *b = raiz;
+    peli  *b = raiz;
 
-    While (b¡= NULL) {
+    while (b!= NULL) {
 
-        If (clave == b->nombre) {
+        if (clave == b->nombre) {
 
-            Cout << “Encontrada: “ << b->nombre << “ (“ << b->ano_reali << “), “
+             cout << "Encontrada: " << b->nombre << " (" << b->ano_reali << "), "
 
-                 << b->genero << “, $” << b->dinero_recau << “\n\n”;
+                 << b->genero << ", $ "<< b->dinero_recau << "\n\n";
 
-            Return;
+            return;
 
         }
 
-        If (clave < b->nombre)
+        if (Bus < b->nombre)
 
             b = b->izq;
 
-        Else
+        else
 
             b = b->der;
 
     }
 
-    Cout << “Película no encontrada.\n\n”;
+    cout << "Película no encontrada.\n\n";
 
 }
 
-Void BuGeneroRec(peli *n, const string &g) {
+void BuGeneroRec(peli *n, const string &g) {
 
-    If (¡n) return;
+    if (!n) return;
 
     BuGeneroRec(n->izq, g);
 
-    If (n->genero == g) {
+    if (n->genero == g) {
 
-        Cout << n->nombre << “ | “ << n->ano_reali
+        cout << n->nombre << " | " << n->ano_reali
 
-             << “ | “ << n->dinero_recau << “\n”;
+             << " | " << n->dinero_recau << "\n";
 
     }
 
@@ -304,29 +302,29 @@ Void BuGeneroRec(peli *n, const string &g) {
 
 
 
-Void BuGenero() {
+void BuGenero() {
 
-    If (¡raiz) {
+    if (!raiz) {
 
-        Cout << “No hay películas.\n\n”;
+        cout << "No hay películas.\n\n";
 
-        Return;
+        return;
 
     }
 
-    String clave;
+    string clave;
 
-    Cin.ignore();
+    cin.ignore();
 
-    Cout << “Género a buscar: “;
+    cout << "Género a buscar: ";
 
-    Getline(cin, clave);
+    getline(cin, clave);
 
-    Cout << “Películas de “ << clave << “:\n”;
+    cout << "Películas de " << clave << ":\n";
 
     BuGeneroRec(raiz, clave);
 
-    Cout << “\n”;
+    cout << "\n";
 
 }
 
@@ -334,31 +332,31 @@ Void BuGenero() {
 
 
 
-Peli *min1 = NULL, *min2 = NULL, *min3 = NULL;
+peli *min1 = NULL, *min2 = NULL, *min3 = NULL;
 
 
 
-Void TresFracasosRec(peli *n) {
+void TresFracasosRec(peli *n) {
 
-    If (¡n) return;
+    if (!n) return;
 
-    If (¡min1 || n->dinero_recau < min1->dinero_recau) {
+    if (!min1 || n->dinero_recau < min1->dinero_recau) {
 
-        Min3 = min2;
+        min3 = min2;
 
-        Min2 = min1;
+        min2 = min1;
 
-        Min1 = n;
+        min1 = n;
 
-    } else if (¡min2 || n->dinero_recau < min2->dinero_recau) {
+    } else if (!min2 || n->dinero_recau < min2->dinero_recau) {
 
-        Min3 = min2;
+        min3 = min2;
 
-        Min2 = n;
+        min2 = n;
 
-    } else if (¡min3 || n->dinero_recau < min3->dinero_recau) {
+    } else if (!min3 || n->dinero_recau < min3->dinero_recau) {
 
-        Min3 = n;
+        min3 = n;
 
     }
 
@@ -370,78 +368,79 @@ Void TresFracasosRec(peli *n) {
 
 
 
-Void TresFracasos() {
+void TresFracasos() {
 
-    If (¡raiz) {
+    if (!raiz) {
 
-        Cout << “No hay películas.\n\n”;
+        cout << "No hay películas.\n\n";
 
-        Return;
+        return;
 
     }
 
 
 
-    Min1 = min2 = min3 = NULL;
+    min1 = min2 = min3 = NULL;
 
     TresFracasosRec(raiz);
 
-    Cout << “=== 3 fracasos taquilleros ===\n”;
+    cout << "=== 3 fracasos taquilleros ===\n";
 
-    If (min1) cout << min1->nombre << “ | “ << min1->dinero_recau << “\n”;
+    if (min1) cout << min1->nombre << " | " << min1->dinero_recau << "\n";
 
-    If (min2) cout << min2->nombre << “ | “ << min2->dinero_recau << “\n”;
+    if (min2) cout << min2->nombre << " | " << min2->dinero_recau << "\n";
 
-    If (min3) cout << min3->nombre << “ | “ << min3->dinero_recau << “\n”;
+    if (min3) cout << min3->nombre << " | " << min3->dinero_recau << "\n";
 
-    Cout << “\n”;
+    cout << "\n";
 
 }
 
 
-Int main() {
+int main() {
 
-    Int opc;
+    int opc;
 
-    Do {
+    
+do {
 
-        Cout << “=== PELIPLUS ===\n”
+        cout << "=== PELIPLUS ===\n"
 
-             << “1) Agregar película\n”
+             << "1) Agregar película\n"
 
-             << “2) Buscar película por nombre\n”
+             << "2) Buscar película por nombre\n"
 
-             << “3) Buscar películas por género\n”
+             << "3) Buscar películas por género\n"
 
-             << “4) Mostrar todas las películas\n”
+             << "4) Mostrar todas las películas\n"
 
-             << “5) Ver los 3 fracasos taquilleros\n”
+             << "5) Ver los 3 fracasos taquilleros\n"
 
-             << “6) Salir\n”
+             << "6) Salir\n"
 
-             << “Elige una opción: “;
+             << "Elige una opción: ";
 
-        Cin >> opc;
+        cin >> opc;
 
-        Cout << endl;
+        cout << endl;
 
-        Switch (opc) {
+        switch (opc) {
 
-            Case 1: AGREGAR(); break;
+            case 1: AGREGAR(); break;
 
-            Case 2: BUSCAR(); break;
+            case 2: BUSCAR(); break;
 
-            Case 3: BuGenero(); break;
+            case 3: BuGenero(); break;
 
-            Case 4: MostrarRecorridos(); break;
+            case 4: MostrarRecorridos(); break;
 
-            Case 5: TresFracasos(); break;
+            case 5: TresFracasos(); break;
 
         }
 
-    } while (opc ¡= 6);
+    } while (opc != 6);
 
-    Return 0;
+    return 0;
 
 }
 
