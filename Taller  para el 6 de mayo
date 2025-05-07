@@ -284,10 +284,119 @@ Void BUSCAR() {
 
 }
 
+Void BuGeneroRec(peli *n, const string &g) {
+
+    If (¡n) return;
+
+    BuGeneroRec(n->izq, g);
+
+    If (n->genero == g) {
+
+        Cout << n->nombre << “ | “ << n->ano_reali
+
+             << “ | “ << n->dinero_recau << “\n”;
+
+    }
+
+    BuGeneroRec(n->der, g);
+
+}
+
+
+
+Void BuGenero() {
+
+    If (¡raiz) {
+
+        Cout << “No hay películas.\n\n”;
+
+        Return;
+
+    }
+
+    String clave;
+
+    Cin.ignore();
+
+    Cout << “Género a buscar: “;
+
+    Getline(cin, clave);
+
+    Cout << “Películas de “ << clave << “:\n”;
+
+    BuGeneroRec(raiz, clave);
+
+    Cout << “\n”;
+
+}
 
 
 
 
+
+Peli *min1 = NULL, *min2 = NULL, *min3 = NULL;
+
+
+
+Void TresFracasosRec(peli *n) {
+
+    If (¡n) return;
+
+    If (¡min1 || n->dinero_recau < min1->dinero_recau) {
+
+        Min3 = min2;
+
+        Min2 = min1;
+
+        Min1 = n;
+
+    } else if (¡min2 || n->dinero_recau < min2->dinero_recau) {
+
+        Min3 = min2;
+
+        Min2 = n;
+
+    } else if (¡min3 || n->dinero_recau < min3->dinero_recau) {
+
+        Min3 = n;
+
+    }
+
+    TresFracasosRec(n->izq);
+
+    TresFracasosRec(n->der);
+
+}
+
+
+
+Void TresFracasos() {
+
+    If (¡raiz) {
+
+        Cout << “No hay películas.\n\n”;
+
+        Return;
+
+    }
+
+
+
+    Min1 = min2 = min3 = NULL;
+
+    TresFracasosRec(raiz);
+
+    Cout << “=== 3 fracasos taquilleros ===\n”;
+
+    If (min1) cout << min1->nombre << “ | “ << min1->dinero_recau << “\n”;
+
+    If (min2) cout << min2->nombre << “ | “ << min2->dinero_recau << “\n”;
+
+    If (min3) cout << min3->nombre << “ | “ << min3->dinero_recau << “\n”;
+
+    Cout << “\n”;
+
+}
 
 
 Int main() {
