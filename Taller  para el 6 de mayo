@@ -1,445 +1,339 @@
 #include <iostream>
+#include <string> 
 
 using namespace std;
 
-
-
 struct peli {
-
     string nombre;
-
     int ano_reali;
-
     string genero;
-
     float dinero_recau;
-
     peli *izq, *der;
-
 };
-
-
 
 peli *raiz = NULL, *aux = NULL, *aux2 = NULL;
 
 void posicionar() {
-
     if (aux->nombre < aux2->nombre) {
-
         if (aux2->izq != NULL) {
-
             aux2 = aux2->izq;
-
             posicionar();
-
         } else {
-
             aux2->izq = aux;
-
         }
-
     } else {
-
-        if (aux2->der != NULL) {
-
+    if (aux2->der != NULL) {
             aux2 = aux2->der;
-
             posicionar();
-
         } else {
-
             aux2->der = aux;
-
         }
-
     }
-
 }
 
+
 void AGREGAR() {
-
-
     aux->izq = aux->der = NULL;
 
-
-
     cout << "--- AGREGAR PELICULA ---" << endl;
-
     cout << "Nombre: ";
-
-    cin.ignore();
-
+    cin.ignore(); 
     getline(cin, aux->nombre);
 
-
-
-    cout << "Año de realización: ";
-
+    cout << "Año de realizacion: ";
     cin >> aux->ano_reali;
+    cin.ignore(); 
 
-    cin.ignore();
-
-
-
-    cout << "Género: ";
-
+    cout << "Genero: ";
     getline(cin, aux->genero);
 
-
-
     cout << "Dinero recaudado: ";
-
     cin >> aux->dinero_recau;
-
-
-
+    
     if (raiz == NULL) {
-
         raiz = aux;
-
     } else {
-
         aux2 = raiz;
-
         posicionar();
-
     }
 
-
-
-    cout << "Película agregada correctamente.\n\n";
-
+    cout << "Pelicula agregada correctamente.\n\n";
 }
 
 int preorden(peli *n) {
-
     if (n == NULL) return 0;
-
     cout << "Nombre: " << n->nombre << "\n"
-
          << "Año: " << n->ano_reali << "\n"
-
-         << "Género:  " << n->genero << "\n"
-
-         << "Recaudación: " << n->dinero_recau << "\n";
-
-
-         
-
+         << "Genero:  " << n->genero << "\n"
+         << "Recaudación: " << n->dinero_recau << "\n\n"; 
     preorden(n->izq);
-
     preorden(n->der);
-
     return 0;
-
 }
-
-
 
 int inorden(peli *n) {
-
     if (n == NULL) return 0;
-
     inorden(n->izq);
-
     cout << "Nombre: " << n->nombre << "\n"
-
          << "Año: " << n->ano_reali << "\n"
-
-         << "Género:  " << n->genero << "\n"
-
-         << "Recaudación: " << n->dinero_recau << "\n";
-
-
-         
-
+         << "Genero:  " << n->genero << "\n"
+         << "Recaudación: " << n->dinero_recau << "\n\n"; 
     inorden(n->der);
-
     return 0;
-
 }
-
-
 
 int postorden(peli *n) {
-
     if (n == NULL) return 0;
-
     postorden(n->izq);
-
     postorden(n->der);
-
     cout << "Nombre: " << n->nombre << "\n"
-
          << "Año: " << n->ano_reali << "\n"
-
-         << "Género:  " << n->genero << "\n"
-
-         << "Recaudación: " << n->dinero_recau << "\n";
-
-         
-
+         << "Genero:  " << n->genero << "\n"
+         << "Recaudación: " << n->dinero_recau << "\n\n"; 
     return 0;
-
 }
 
-
-
 void MostrarRecorridos() {
-
     int opc;
-
+    if (raiz == NULL) {
+        cout << "No hay peliculas registradas para mostrar.\n\n";
+        return;
+    }
     do {
-
         cout << "=== Mostrar películas ===\n"
-
              << "1) Preorden\n"
-
              << "2) Inorden\n"
-
              << "3) Postorden\n"
-
-             << "4) Volver al menú principal\n"
-
+             << "4) Volver al menu principal\n"
              << "Elige una opción: ";
-
         cin >> opc;
 
+        
         cout << endl;
 
         switch (opc) {
-
             case 1:
-
                 preorden(raiz);
-
                 break;
-
             case 2:
-
                 inorden(raiz);
-
                 break;
-
             case 3:
-
                 postorden(raiz);
-
                 break;
-
+            case 4:
+                break;
+            default:
+                if (opc != 4) cout << "Opción no válida. Intente de nuevo.\n";
         }
-
-        cout << endl;
-
     } while (opc != 4);
-
 }
+
 
 void BUSCAR() {
-
     if (raiz == NULL) {
-
         cout << "No hay películas registradas.\n\n";
-
         return;
-
     }
-
     string Bus;
-
     cout << "Ingrese el nombre de la película a buscar: ";
-
     cin.ignore();
-
     getline(cin, Bus);
-
     peli  *b = raiz;
-
+    
+    int encontrada = 0; 
     while (b!= NULL) {
-
         if (Bus == b->nombre) {
-
              cout << "Encontrada: " << b->nombre << " (" << b->ano_reali << "), "
-
                  << b->genero << ", $ "<< b->dinero_recau << "\n\n";
-
-            return;
-
+            encontrada = 1; 
+            break;
         }
-
         if (Bus < b->nombre)
-
             b = b->izq;
-
         else
-
             b = b->der;
-
     }
-
-    cout << "Película no encontrada.\n\n";
-
+    if (encontrada == 0) { 
+        cout << "Película no encontrada.\n\n";
+    }
 }
+
 
 void BuGeneroRec(peli *n, const string &g) {
-
     if (!n) return;
-
     BuGeneroRec(n->izq, g);
-
     if (n->genero == g) {
-
         cout << n->nombre << " | " << n->ano_reali
-
              << " | " << n->dinero_recau << "\n";
-
     }
-
     BuGeneroRec(n->der, g);
-
 }
-
-
 
 void BuGenero() {
-
     if (!raiz) {
-
         cout << "No hay películas.\n\n";
-
         return;
-
     }
-
     string clave;
-
     cin.ignore();
-
     cout << "Género a buscar: ";
-
     getline(cin, clave);
-
-    cout << "Películas de " << clave << ":\n";
-
+    cout << "\nPelículas de " << clave << ":\n";
     BuGeneroRec(raiz, clave);
-
     cout << "\n";
-
 }
-
-
-
-
-
+ 
 peli *min1 = NULL, *min2 = NULL, *min3 = NULL;
 
-
-
 void TresFracasosRec(peli *n) {
-
     if (!n) return;
-
     if (!min1 || n->dinero_recau < min1->dinero_recau) {
-
         min3 = min2;
-
         min2 = min1;
-
         min1 = n;
-
     } else if (!min2 || n->dinero_recau < min2->dinero_recau) {
-
         min3 = min2;
-
         min2 = n;
-
     } else if (!min3 || n->dinero_recau < min3->dinero_recau) {
-
         min3 = n;
-
     }
-
     TresFracasosRec(n->izq);
-
     TresFracasosRec(n->der);
-
 }
-
-
 
 void TresFracasos() {
-
     if (!raiz) {
-
         cout << "No hay películas.\n\n";
-
         return;
-
     }
 
-
-
     min1 = min2 = min3 = NULL;
-
     TresFracasosRec(raiz);
-
     cout << "=== 3 fracasos taquilleros ===\n";
-
     if (min1) cout << min1->nombre << " | " << min1->dinero_recau << "\n";
-
-    if (min2) cout << min2->nombre << " | " << min2->dinero_recau << "\n";
-
-    if (min3) cout << min3->nombre << " | " << min3->dinero_recau << "\n";
-
+    if (min2 && min2 != min1) cout << min2->nombre << " | " << min2->dinero_recau << "\n";
+    if (min3 && min3 != min2 && min3 != min1) cout << min3->nombre << " | " << min3->dinero_recau << "\n";
     cout << "\n";
-
 }
+
+
+peli* encontrarMinimo(peli* nodo) {
+    peli* actual = nodo;
+    while (actual && actual->izq != NULL) {
+        actual = actual->izq;
+    }
+    return actual;
+}
+
+peli* eliminarNodoRecursivo(peli* nodoActual, string nombrePelicula, int &eliminadaFlag) {
+    if (nodoActual == NULL) {
+        return nodoActual; 
+    }
+
+    if (nombrePelicula < nodoActual->nombre) {
+        nodoActual->izq = eliminarNodoRecursivo(nodoActual->izq, nombrePelicula, eliminadaFlag);
+    } else if (nombrePelicula > nodoActual->nombre) {
+        nodoActual->der = eliminarNodoRecursivo(nodoActual->der, nombrePelicula, eliminadaFlag);
+    } else {
+        eliminadaFlag = 1; 
+
+        if (nodoActual->izq == NULL) {
+            peli* temp = nodoActual->der;
+            delete nodoActual; 
+            return temp;      
+        }
+        else if (nodoActual->der == NULL) {
+            peli* temp = nodoActual->izq;
+            delete nodoActual; 
+            return temp;      
+        }
+
+        peli* temp = encontrarMinimo(nodoActual->der);
+
+        nodoActual->nombre = temp->nombre;
+        nodoActual->ano_reali = temp->ano_reali;
+        nodoActual->genero = temp->genero;
+        nodoActual->dinero_recau = temp->dinero_recau;
+        
+        int subEliminadaFlag = 0;
+        nodoActual->der = eliminarNodoRecursivo(nodoActual->der, temp->nombre, subEliminadaFlag);
+    }
+    return nodoActual; 
+}
+
+void ELIMINAR_PELICULA() {
+    if (raiz == NULL) {
+        cout << "No hay películas registradas para eliminar.\n\n";
+        return;
+    }
+
+    string nombreEliminar;
+    cout << "--- ELIMINAR PELICULA POR NOMBRE ---" << endl;
+    cout << "Ingrese el nombre de la película a eliminar: ";
+    cin.ignore(); 
+    getline(cin, nombreEliminar);
+
+    int eliminada = 0; // Bandera: 0 si no se eliminó, 1 si se eliminó
+    raiz = eliminarNodoRecursivo(raiz, nombreEliminar, eliminada);
+
+    if (eliminada == 1) { 
+        cout << "Pelicula \"" << nombreEliminar << "\" eliminada correctamente.\n\n";
+    } else {
+        cout << "Pelicula \"" << nombreEliminar << "\" no encontrada. No se pudo eliminar.\n\n";
+    }
+}
+
+
 
 
 int main() {
-
     int opc;
 
-    
-do {
-
+    do {
         cout << "=== PELIPLUS ===\n"
-
-             << "1) Agregar película\n"
-
-             << "2) Buscar película por nombre\n"
-
-             << "3) Buscar películas por género\n"
-
-             << "4) Mostrar todas las películas\n"
-
+             << "1) Agregar pelicula\n"
+             << "2) Buscar pelicula por noImbre\n"
+             << "3) Buscar peliculas por genero\n"
+             << "4) Mostrar todas las peliculas\n"
              << "5) Ver los 3 fracasos taquilleros\n"
-
-             << "6) Salir\n"
-
+             << "6) Eliminar pelicula por nombre\n"  
+             << "7) Salir\n"                        
              << "Elige una opción: ";
-
         cin >> opc;
 
-        cout << endl;
+        
+        cout << endl; 
+
 
         switch (opc) {
-
-            case 1: AGREGAR(); break;
-
-            case 2: BUSCAR(); break;
-
-            case 3: BuGenero(); break;
-
-            case 4: MostrarRecorridos(); break;
-
-            case 5: TresFracasos(); break;
-
+            case 1:
+                aux = new peli();
+                AGREGAR();
+                break;
+            case 2:
+                BUSCAR();
+                break;
+            case 3:
+                BuGenero();
+                break;
+            case 4:
+                MostrarRecorridos();
+                break;
+            case 5:
+                TresFracasos();
+                break;
+            case 6: 
+                ELIMINAR_PELICULA();
+                break;
+            case 7:
+                cout << "Saliendo del programa PELIPLUS. ¡Hasta pronto!\n\n";
+                break;
+            default:
+                cout << "Opcion no valida. Intente de nuevo.\n\n";
         }
-
-    } while (opc != 6);
+    } while (opc != 7); 
 
     return 0;
-
 }
 
