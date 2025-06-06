@@ -1,1 +1,421 @@
 
+
+#include <iostream>
+
+#include <string>
+
+
+
+Using namespace std;
+
+
+
+Struct peli {
+
+    String nombre;
+
+    Int ano_reali;
+
+    String genero;
+
+    Float dinero_recau;
+
+    Peli* izq;
+
+    Peli* der;
+
+    Int altura;  
+
+};
+
+
+
+// Función para obtener altura del nodo
+
+Int obtenerAltura(peli* n) {
+
+    If (n == nullptr) return -1;
+
+    Return n->altura;
+
+}
+
+
+
+// Función para máximo de dos enteros
+
+Int max(int a, int b) {
+
+    Return (a > b) ¿ a : b;
+
+}
+
+
+
+// Rotación derecha
+
+Peli* rotacionDerecha(peli* y) {
+
+    Peli* x = y->izq;
+
+    Peli* T2 = x->der;
+
+
+
+    // Rotar
+
+    x->der = y;
+
+    y->izq = T2;
+
+
+
+    // Actualizar alturas
+
+    y->altura = max(obtenerAltura(y->izq), obtenerAltura(y->der)) + 1;
+
+    x->altura = max(obtenerAltura(x->izq), obtenerAltura(x->der)) + 1;
+
+
+
+    return x;
+
+}
+
+
+
+// Rotación izquierda
+
+Peli* rotacionIzquierda(peli* x) {
+
+    Peli* y = x->der;
+
+    Peli* T2 = y->izq;
+
+
+
+    y->izq = x;
+
+    x->der = T2;
+
+
+
+    x->altura = max(obtenerAltura(x->izq), obtenerAltura(x->der)) + 1;
+
+    y->altura = max(obtenerAltura(y->izq), obtenerAltura(y->der)) + 1;
+
+
+
+    return y;
+
+}
+
+
+
+// Factor de balance
+
+Int obtenerBalance(peli* n) {
+
+    If (n == nullptr) return 0;
+
+    Return obtenerAltura(n->izq) – obtenerAltura(n->der);
+
+}
+
+
+
+// Insertar basado en año (ano_reali)
+
+Peli* insertarAVL(peli* nodo, peli* nuevaPeli) {
+
+    If (nodo == nullptr) return nuevaPeli;
+
+
+
+    If (nuevaPeli->ano_reali < nodo->ano_reali) {
+
+        Nodo->izq = insertarAVL(nodo->izq, nuevaPeli);
+
+    }
+
+    Else if (nuevaPeli->ano_reali > nodo->ano_reali) {
+
+        Nodo->der = insertarAVL(nodo->der, nuevaPeli);
+
+    }
+
+    Else {
+
+        // Si el año es igual, para evitar conflictos podemos ordenar por nombre
+
+        If (nuevaPeli->nombre < nodo->nombre)
+
+            Nodo->izq = insertarAVL(nodo->izq, nuevaPeli);
+
+        Else if (nuevaPeli->nombre > nodo->nombre)
+
+            Nodo->der = insertarAVL(nodo->der, nuevaPeli);
+
+        Else {
+
+            Cout << “Película duplicada (mismo año y nombre), no se inserta.\n”;
+
+            Delete nuevaPeli;
+
+            Return nodo;
+
+        }
+
+    }
+
+
+
+    Nodo->altura = 1 + max(obtenerAltura(nodo->izq), obtenerAltura(nodo->der));
+
+    Int balance = obtenerBalance(nodo);
+
+
+
+    // Izquierda Izquierda
+
+    If (balance > 1 && nuevaPeli->ano_reali < nodo->izq->ano_reali)
+
+        Return rotacionDerecha(nodo);
+
+
+
+    // Derecha Derecha
+
+    If (balance < -1 && nuevaPeli->ano_reali > nodo->der->ano_reali)
+
+        Return rotacionIzquierda(nodo);
+
+
+
+    // Izquierda Derecha
+
+    If (balance > 1 && nuevaPeli->ano_reali > nodo->izq->ano_reali) {
+
+        Nodo->izq = rotacionIzquierda(nodo->izq);
+
+        Return rotacionDerecha(nodo);
+
+    }
+
+
+
+    // Derecha Izquierda
+
+    If (balance < -1 && nuevaPeli->ano_reali < nodo->der->ano_reali) {
+
+        Nodo->der = rotacionDerecha(nodo->der);
+
+        Return rotacionIzquierda(nodo);
+
+    }
+
+
+
+    Return nodo;
+
+}
+
+
+
+Void preorden(peli* n) {
+
+    If (n == nullptr) return;
+
+    Cout << “Nombre: “ << n->nombre << “, Año: “ << n->ano_reali << “, Género: “ << n->genero << “, Recaudación: $” << n->dinero_recau << “\n”;
+
+    Preorden(n->izq);
+
+    Preorden(n->der);
+
+}
+
+
+
+Void inorden(peli* n) {
+
+    If (n == nullptr) return;
+
+    Inorden(n->izq);
+
+    Cout << “Nombre: “ << n->nombre << “, Año: “ << n->ano_reali << “, Género: “ << n->genero << “, Recaudación: $” << n->dinero_recau << “\n”;
+
+    Inorden(n->der);
+
+}
+
+
+
+// Buscar por año exacto (puede retornar primera película que encuentre con ese año)
+
+Peli* buscarPorAno(peli* raiz, int ano) {
+
+    If (raiz == nullptr) return nullptr;
+
+    If (ano == raiz->ano_reali) return raiz;
+
+    If (ano < raiz->ano_reali) return buscarPorAno(raiz->izq, ano);
+
+    Else return buscarPorAno(raiz->der, ano);
+
+}
+
+
+
+// Variables globales
+
+Peli* raiz = nullptr;
+
+
+
+Void agregarPelicula() {
+
+    Peli* nueva = new peli();
+
+    Nueva->izq = nueva->der = nullptr;
+
+    Nueva->altura = 0;
+
+    Cout << “Ingrese nombre: “;
+
+    Cin.ignore();
+
+    Getline(cin, nueva->nombre);
+
+    Cout << “Ingrese año de realizacion: “;
+
+    Cin >> nueva->ano_reali;
+
+    Cin.ignore();
+
+    Cout << “Ingrese genero: “;
+
+    Getline(cin, nueva->genero);
+
+    Cout << “Ingrese recaudación: “;
+
+    Cin >> nueva->dinero_recau;
+
+
+
+    Raiz = insertarAVL(raiz, nueva);
+
+    Cout << “Pelicula agregada correctamente.\n\n”;
+
+}
+
+
+
+Void mostrarPeliculas() {
+
+    If (raiz == nullptr) {
+
+        Cout << “No hay peliculas registradas.\n\n”;
+
+        Return;
+
+    }
+
+    Cout << “Peliculas en orden por año:\n”;
+
+    Inorden(raiz);
+
+    Cout << “\n”;
+
+}
+
+
+
+Void buscarPorAnoInterfaz() {
+
+    Cout << “Ingrese año para buscar: “;
+
+    Int ano;
+
+    Cin >> ano;
+
+    Peli* resultado = buscarPorAno(raiz, ano);
+
+    If (resultado) {
+
+        Cout << “Película encontrada: “ << resultado->nombre << “, Año: “ << resultado->ano_reali << “, Género: “ << resultado->genero << “, Recaudación: $” << resultado->dinero_recau << “\n\n”;
+
+    }
+
+    Else {
+
+        Cout << “No se encontró película con año “ << ano << “.\n\n”;
+
+    }
+
+}
+
+
+
+Int main() {
+
+    Int opc;
+
+    Do {
+
+        Cout << “----- MENÚ PELIPLUS (AVL por Año) -----\n”;
+
+        Cout << “1) Agregar película\n2) Mostrar películas (por año)\n3) Buscar película por año\n4) Salir\n”;
+
+        Cout << “Elige una opción: “;
+
+        Cin >> opc;
+
+        Cout << endl;
+
+
+
+        Switch (opc) {
+
+            Case 1:
+
+                agregarPelicula();
+
+                break;
+
+            case 2:
+
+                mostrarPeliculas();
+
+                break;
+
+            case 3:
+
+                buscarPorAnoInterfaz();
+
+                break;
+
+            case 4:
+
+                cout << “Saliendo. ¡Hasta pronto!\n”;
+
+                break;
+
+            default:
+
+                cout << “Opción inválida. Intente de nuevo.\n\n”;
+
+        }
+
+    } while (opc ¡= 4);
+
+
+
+    Return 0;
+
+}
+
+
+
+
+
+
